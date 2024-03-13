@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import os, time
+import matplotlib.animation as animation
 
 def bezier_curve(t, points):
     if len(points) == 1:
@@ -20,7 +20,13 @@ def bezier_curve(t, points):
         
         # linear interpolation left sama right poin
         return (1 - t) * left_curve + t * right_curve
-    
+
+def update_line(num, curve_points, line, lines):
+    line.set_data(curve_points[:num, 0], curve_points[:num, 1])
+    for i, l in enumerate(lines):
+        l.set_data([points[i][0], curve_points[num, 0]], [points[i][1], curve_points[num, 1]])
+    return line, *lines
+
 n = int(input("Masukkan n: "))
 points = []
 
@@ -36,34 +42,33 @@ for i in range(n-2):
 x_end, y_end = map(float, input("Masukkan end point (x,y): ").split(","))
 points.append(np.array([x_end, y_end]))
 
-# hitung nilai dengan t = 0,1, 100 kali
-t_values = np.linspace(0, 1, 100)
-print(t_values)
+# hitung nilai dengan t = 0,1, 50 kali
+t_values = np.linspace(0, 1, 50)
 
-start_time = time.time()
+# Menghitung semua titik kurva bezier
 curve_points = np.array([bezier_curve(t, points) for t in t_values])
-end_time = time.time()
-
-print("Waktu eksekusi: ", end_time - start_time, " detik")
 
 # plotting
-plt.plot(curve_points[:,0], curve_points[:,1], label='Bézier Curve')
-plt.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title('Bézier Curve\nWaktu eksekusi: {} detik'.format(end_time - start_time))
+fig, ax = plt.subplots()
+line, = ax.plot([], [], 'b-', label='Bézier Curve')
+ax.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_title('Bézier Curve Animation')
+
+lines = [ax.plot([], [], 'g--')[0] for _ in range(n-1)]  # Garis antar titik kontrol
+
+def init():
+    line.set_data([], [])
+    for l in lines:
+        l.set_data([], [])
+    return line, *lines
+
+ani = animation.FuncAnimation(fig, update_line, frames=len(curve_points), fargs=(curve_points, line, lines),
+                              init_func=init, blit=True)
+
 plt.legend(fontsize='small')
 plt.grid(True)
 plt.axis('equal')
-
-# save to folder /test
-# current directory
-current_directory = os.path.abspath(os.path.dirname(__file__))
-# mundur 1 folder
-parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
-
-file_name = input("Masukkan nama file (contoh: 'xx.png'): ")
-file_path = parent_directory + "/test/" + file_name
-plt.savefig(file_path)
 
 plt.show()
