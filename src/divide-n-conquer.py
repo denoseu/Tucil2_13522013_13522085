@@ -1,69 +1,61 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import os, time
+from matplotlib.animation import FuncAnimation
 
-def bezier_curve(t, points):
-    if len(points) == 1:
-        return points[0]
-    elif len(points) == 2:
-        # linear interpolation for two points
-        return (1 - t) * points[0] + t * points[1]
+def midpoint(point1, point2):
+    return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
+
+def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
+    if iterations == 0:
+        plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'b-')
     else:
-        # bagi poin poinnya jadi 2 bagian
-        titik_tengah = len(points) // 2
-        right_points = points[titik_tengah:]
-        left_points = points[:titik_tengah + 1]
+        Q0 = midpoint(P0, P1)
+        Q1 = midpoint(P1, P2)
+        R0 = midpoint(Q0, Q1)
         
-        # hitung rekursif left and right poinnya
-        left_curve = bezier_curve(t, left_points)
-        right_curve = bezier_curve(t, right_points)
+        draw_bezier_curve(P0, Q0, R0, iterations - 1, current_iteration)
+        draw_bezier_curve(R0, Q1, P2, iterations - 1, current_iteration)
         
-        # linear interpolation left sama right poin
-        return (1 - t) * left_curve + t * right_curve
-    
-n = int(input("Masukkan n: "))
-points = []
+        if iterations == current_iteration:
+            plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'r--')
 
-# input start and end points
-x_start, y_start = map(float, input("Masukkan start point (x,y): ").split(","))
-points.append(np.array([x_start, y_start]))
+# titik awal dan akhir
+P0 = (2, 2)
+P1 = (3, 3)
+P2 = (6, 2)
 
-# input control points
-for i in range(n-2):
-    x, y = map(float, input("Masukkan control point ke-{} (x,y): ".format(i+1)).split(","))
-    points.append(np.array([x, y]))
+# buat kurva animasi
+def animate(iteration):
 
-x_end, y_end = map(float, input("Masukkan end point (x,y): ").split(","))
-points.append(np.array([x_end, y_end]))
+    # plot titik-titik awal
+    plt.plot(*P0, 'ro')
+    plt.text(P0[0], P0[1], 'P0')
+    plt.plot(*P1, 'ro')
+    plt.text(P1[0], P1[1], 'P1')
+    plt.plot(*P2, 'ro')
+    plt.text(P2[0], P2[1], 'P2')
 
-# hitung nilai dengan t = 0,1, 100 kali
-t_values = np.linspace(0, 1, 100)
-print(t_values)
+    ax.clear()
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_title(f'Bezier Curve Iteration {iteration}')
+    ax.grid()
+    ax.axis('equal')
+    for i in range(1, iteration + 1):
+        draw_bezier_curve(P0, P1, P2, iteration, i)
+    ax.autoscale()
 
-start_time = time.time()
-curve_points = np.array([bezier_curve(t, points) for t in t_values])
-end_time = time.time()
+# inisialisasi plot
+fig, ax = plt.subplots()
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_title('Bezier Curve')
+ax.grid()
+ax.axis('equal')
 
-print("Waktu eksekusi: ", end_time - start_time, " detik")
+# buat animasi
+iterations = int(input("Masukkan jumlah iterasi: "))
+ani = FuncAnimation(fig, animate, frames=iterations, repeat=True)
 
-# plotting
-plt.plot(curve_points[:,0], curve_points[:,1], label='Bézier Curve')
-plt.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title('Bézier Curve\nWaktu eksekusi: {} detik'.format(end_time - start_time))
-plt.legend(fontsize='small')
-plt.grid(True)
-plt.axis('equal')
-
-# save to folder /test
-# current directory
-current_directory = os.path.abspath(os.path.dirname(__file__))
-# mundur 1 folder
-parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
-
-file_name = input("Masukkan nama file (contoh: 'xx.png'): ")
-file_path = parent_directory + "/test/" + file_name
-plt.savefig(file_path)
-
+# tampilkan animasi
 plt.show()
+
