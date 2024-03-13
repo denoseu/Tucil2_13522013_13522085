@@ -37,7 +37,7 @@ def animate(iteration):
     ax.clear()
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Bezier Curve Iteration {iteration}')
+    ax.set_title(f'Beziér Curve Iteration {iteration}')
     ax.grid()
     ax.axis('equal')
     for i in range(1, iteration + 1):
@@ -48,7 +48,7 @@ def animate(iteration):
 fig, ax = plt.subplots()
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
-ax.set_title('Bezier Curve')
+ax.set_title('Beziér Curve')
 ax.grid()
 ax.axis('equal')
 
@@ -57,5 +57,6 @@ iterations = int(input("Masukkan jumlah iterasi: "))
 ani = FuncAnimation(fig, animate, frames=iterations, interval=350, repeat=True)
 
 # tampilkan animasi
+plt.draw()
 plt.show()
 

@@ -27,7 +27,7 @@ def animate(iteration):
     ax.clear()
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Bezier Curve Iteration {iteration}')
+    ax.set_title(f'Beziér Curve Iteration {iteration}')
     ax.grid()
     ax.axis('equal')
 
@@ -50,7 +50,7 @@ points = [(2, 2), (4, 4), (3, 3), (6, 2)]
 fig, ax = plt.subplots()
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
-ax.set_title('Bezier Curve')
+ax.set_title('Beziér Curve')
 ax.grid()
 ax.axis('equal')
 
