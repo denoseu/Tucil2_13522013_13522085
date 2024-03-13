@@ -54,7 +54,7 @@ ax.axis('equal')
 
 # buat animasi
 iterations = int(input("Masukkan jumlah iterasi: "))
-ani = FuncAnimation(fig, animate, frames=iterations, repeat=True)
+ani = FuncAnimation(fig, animate, frames=iterations, interval=350, repeat=True)
 
 # tampilkan animasi
 plt.show()
