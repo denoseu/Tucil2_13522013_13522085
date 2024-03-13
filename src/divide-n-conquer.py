@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 def bezier_curve(t, points):
     if len(points) == 1:
@@ -48,4 +49,15 @@ plt.title('Bézier Curve')
 plt.legend()
 plt.grid(True)
 plt.axis('equal')
+
+# save to folder /test
+# current directory
+current_directory = os.path.abspath(os.path.dirname(__file__))
+# mundur 1 folder
+parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+
+file_name = input("Masukkan nama file (contoh: 'xx.png'): ")
+file_path = parent_directory + "/test/" + file_name
+plt.savefig(file_path)
+
 plt.show()
