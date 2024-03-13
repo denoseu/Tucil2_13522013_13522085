@@ -12,7 +12,7 @@ def draw_bezier_recursive(points, iterations):
     if len(points) == 2 or iterations == 0:
         xs, ys = zip(*points)  # unpack points menjadi x and y coordinates
         if iterations == 0:
-            plt.plot(xs, ys, 'b-')  # Garis normal untuk iterasi terakhir
+            plt.plot(xs, ys, 'b-')  # garis normal untuk iterasi terakhir
             # simpan kurva ini untuk iterasi berikutnya
             previous_curves.append((xs, ys))
         # tidak perlu lagi menyimpan kurva di sini karena kita tidak menggunakan previous_curves dalam fungsi ini
