@@ -21,7 +21,7 @@ x_start, y_start = map(float, input("Enter start point (comma-separated): ").spl
 points.insert(0, np.array([x_start, y_start]))
                    
 # input control points, kurangin 2 karena n udah termasuk start dan end points
-num_points = n-2;
+num_points = n-2
 for _ in range(num_points):
     x, y = map(float, input("Enter control point (comma-separated): ").split(","))
     points.append(np.array([x, y]))
