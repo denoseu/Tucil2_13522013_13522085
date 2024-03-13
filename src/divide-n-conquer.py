@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import os
+import os, time
 
 def bezier_curve(t, points):
     if len(points) == 1:
@@ -38,15 +38,20 @@ points.append(np.array([x_end, y_end]))
 
 # hitung nilai dengan t = 0,1, 100 kali
 t_values = np.linspace(0, 1, 100)
+
+start_time = time.time()
 curve_points = np.array([bezier_curve(t, points) for t in t_values])
+end_time = time.time()
+
+print("Waktu eksekusi: ", end_time - start_time, " detik")
 
 # plotting
 plt.plot(curve_points[:,0], curve_points[:,1], label='Bézier Curve')
 plt.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
 plt.xlabel('X')
 plt.ylabel('Y')
-plt.title('Bézier Curve')
-plt.legend()
+plt.title('Bézier Curve\nWaktu eksekusi: {} detik'.format(end_time - start_time))
+plt.legend(fontsize='small')
 plt.grid(True)
 plt.axis('equal')
 
