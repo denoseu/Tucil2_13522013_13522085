@@ -1,43 +1,43 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-### ALGORITHM ###
-def bezier_curve_recursive(t, points):
+def bezier_curve(t, points):
     if len(points) == 1:
         return points[0]
+    elif len(points) == 2:
+        # linear interpolation for two points
+        return (1 - t) * points[0] + t * points[1]
     else:
-        new_points = []
-        for i in range(len(points)-1):
-            new_point = (1 - t) * points[i] + t * points[i+1]
-            new_points.append(new_point)
-            print(f"For t = {t}: {new_points}")
-        return bezier_curve_recursive(t, new_points)
-
+        # bagi poin poinnya jadi 2 bagian
+        titik_tengah = len(points) // 2
+        right_points = points[titik_tengah:]
+        left_points = points[:titik_tengah + 1]
+        
+        # hitung rekursif left and right poinnya
+        left_curve = bezier_curve(t, left_points)
+        right_curve = bezier_curve(t, right_points)
+        
+        # linear interpolation left sama right poin
+        return (1 - t) * left_curve + t * right_curve
+    
 n = int(input("Masukkan n: "))
-
-# start and end points
-x_start, y_start = map(float, input("Enter start point (comma-separated): ").split(","))
-x_end, y_end = map(float, input("Enter end point (comma-separated): ").split(","))
-                   
-# input control points, kurangin 2 karena n udah termasuk start dan end points
-num_points = n-2;
 points = []
-for _ in range(num_points):
-    x, y = map(float, input("Enter control point (comma-separated): ").split(","))
+
+# input start and end points
+x_start, y_start = map(float, input("Masukkan start point (x,y): ").split(","))
+points.append(np.array([x_start, y_start]))
+
+# input control points
+for i in range(n-2):
+    x, y = map(float, input("Masukkan control point ke-{} (x,y): ".format(i+1)).split(","))
     points.append(np.array([x, y]))
 
-points.insert(0, np.array([x_start, y_start]))
+x_end, y_end = map(float, input("Masukkan end point (x,y): ").split(","))
 points.append(np.array([x_end, y_end]))
 
-print("POINTS: ", points)
-
-
-# t nya dari 0 sampai 1, 100 titik
+# hitung nilai dengan t = 0,1, 100 kali
 t_values = np.linspace(0, 1, 100)
-
-# cari curve points
-curve_points = np.array([bezier_curve_recursive(t, points) for t in t_values])
+curve_points = np.array([bezier_curve(t, points) for t in t_values])
 
 # plotting
 plt.plot(curve_points[:,0], curve_points[:,1], label='Bézier Curve')
