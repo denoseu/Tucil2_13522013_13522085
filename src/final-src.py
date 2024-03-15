@@ -28,6 +28,10 @@ def draw_bezier_recursive(points, iterations):
 # Input n titik
 n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
 
+while (n < 2):
+    print("\nUntuk membuat kurva masukan 2 atau lebih titik!")
+    n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
+
 # Input koordinat poin-poin
 x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
 points = [(x_start, y_start)]

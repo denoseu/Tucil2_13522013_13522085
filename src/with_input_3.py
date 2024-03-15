@@ -1,80 +1,73 @@
-import tkinter as tk
-from tkinter import simpledialog
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-class BezierAnimationGUI(tk.Tk):
-    def __init__(self):
-        super().__init__()
+def midpoint(point1, point2):
+    return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
-        self.title("Bezier Curve Animation")
-        self.geometry("800x600")
+def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
+    if iterations == 0:
+        plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'b-')
+    else:
+        Q0 = midpoint(P0, P1)
+        Q1 = midpoint(P1, P2)
+        R0 = midpoint(Q0, Q1)
+        
+        draw_bezier_curve(P0, Q0, R0, iterations - 1, current_iteration)
+        draw_bezier_curve(R0, Q1, P2, iterations - 1, current_iteration)
+        
+        if iterations == current_iteration:
+            plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'r--')
 
-        self.canvas = tk.Canvas(self, width=800, height=500)
-        self.canvas.pack()
 
-        self.start_button = tk.Button(self, text="Start Animation", command=self.start_animation)
-        self.start_button.pack()
+# Input koordinat poin-poin
+x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
+P0 = (x_start, y_start)
 
-        self.iterations_entry = tk.Entry(self)
-        self.iterations_entry.pack()
-        self.iterations_entry.insert(0, "Enter number of iterations")
+# Input control points
+x, y = map(float, input("Masukan control point (x,y): ").split(","))
+P1 = (x, y)
 
-    def midpoint(self, point1, point2):
-        return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
+x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
+P2 = (x_end, y_end)
 
-    def draw_bezier_recursive(self, points, iterations):
-        if len(points) == 2 or iterations == 0:
-            xs, ys = zip(*points)  # unpack points into x and y coordinates
-            self.canvas.create_line(xs, ys, fill='blue')
-        else:
-            new_points = [points[0]]
-            for i in range(len(points) - 1):
-                new_points.append(self.midpoint(points[i], points[i + 1]))
-            new_points.append(points[-1])
-            self.draw_bezier_recursive(new_points, iterations - 1)
+# titik awal dan akhir
+# P0 = (2, 2)
+# P1 = (3, 3)
+# P2 = (6, 2)
 
-    def animate(self, iteration):
-        self.canvas.delete("all")
-        self.canvas.create_text(400, 530, text=f'Bezier Curve Iteration {iteration}', font=("Arial", 16), anchor="center")
-        self.canvas.create_text(400, 550, text=f'Iterations: {self.iterations}', font=("Arial", 12), anchor="center")
+# buat kurva animasi
+def animate(iteration):
 
-        # Display points
-        for i, point in enumerate(self.points):
-            self.canvas.create_oval(point[0] - 3, point[1] - 3, point[0] + 3, point[1] + 3, fill="red")
-            self.canvas.create_text(point[0] + 10, point[1] - 10, text=f'P{i}', font=("Arial", 10), anchor="nw")
+    # plot titik-titik awal
+    plt.plot(*P0, 'ro')
+    plt.text(P0[0], P0[1], 'P0')
+    plt.plot(*P1, 'ro')
+    plt.text(P1[0], P1[1], 'P1')
+    plt.plot(*P2, 'ro')
+    plt.text(P2[0], P2[1], 'P2')
 
-        # Draw curve
-        self.draw_bezier_recursive(self.points, iteration)
+    ax.clear()
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_title(f'Beziér Curve Iteration {iteration}')
+    ax.grid()
+    ax.axis('equal')
+    for i in range(1, iteration + 1):
+        draw_bezier_curve(P0, P1, P2, iteration, i)
+    ax.autoscale()
 
-    def start_animation(self):
-        self.iterations = int(self.iterations_entry.get())
-        self.points = []
+# inisialisasi plot
+fig, ax = plt.subplots()
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_title('Beziér Curve')
+ax.grid()
+ax.axis('equal')
 
-        # Input coordinate points
-        x_start, y_start = map(float, simpledialog.askstring("Input", "Enter start point (x,y): ").split(","))
-        self.points.append((x_start, y_start))
+# buat animasi
+iterations = int(input("Masukkan jumlah iterasi: "))
+ani = FuncAnimation(fig, animate, frames=iterations, interval=350, repeat=True)
 
-        x, y = map(float, simpledialog.askstring("Input", "Enter control point (x,y): ").split(","))
-        self.points.append((x, y))
-
-        x_end, y_end = map(float, simpledialog.askstring("Input", "Enter end point (x,y): ").split(","))
-        self.points.append((x_end, y_end))
-
-        # Initialize plot
-        self.fig, self.ax = plt.subplots()
-        self.ax.set_xlabel('X')
-        self.ax.set_ylabel('Y')
-        self.ax.set_title('Bezier Curve')
-        self.ax.grid()
-        self.ax.axis('equal')
-
-        # Create animation
-        self.ani = FuncAnimation(self.fig, self.animate, frames=self.iterations + 1, interval=350, repeat=False)
-
-        # Display animation
-        plt.show()
-
-if __name__ == "__main__":
-    app = BezierAnimationGUI()
-    app.mainloop()
+# tampilkan animasi
+plt.draw()
+plt.show()

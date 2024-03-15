@@ -4,10 +4,18 @@ from matplotlib.animation import FuncAnimation
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
+# menyimpan kurva sebelumnya supaya ga hilang (bisa di view)
+previous_curves = []
+
+# fungsi untuk menggambar bezier secara rekursif
 def draw_bezier_recursive(points, iterations):
     if len(points) == 2 or iterations == 0:
-        xs, ys = zip(*points) # unpack points into x and y coordinates
-        plt.plot(xs, ys, 'b-')
+        xs, ys = zip(*points)  # unpack points menjadi x and y coordinates
+        if iterations == 0:
+            plt.plot(xs, ys, 'b-')  # garis normal untuk iterasi terakhir
+            # simpan kurva ini untuk iterasi berikutnya
+            previous_curves.append((xs, ys))
+        # tidak perlu lagi menyimpan kurva di sini karena kita tidak menggunakan previous_curves dalam fungsi ini
     else:
         new_points = []
         for i in range(len(points)-1):
@@ -30,35 +38,41 @@ for i in range(n-2):
 x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
 points.append((x_end, y_end))
 
-# Create animation frames
 def animate(iteration):
     ax.clear()
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Bezier Curve Iteration {iteration}')
+    ax.set_title(f'Beziér Curve Iteration {iteration}')
     ax.grid()
     ax.axis('equal')
 
-    # Display points
+    # tampilkan titik
     for i, point in enumerate(points):
         plt.plot(*point, 'ro')
         plt.text(point[0], point[1], f'P{i}')
 
-    # Draw curve
+    # gambar ulang semua kurva sebelumnya dengan garis putus-putus (biar tau yang lalu lalu)
+    for curve in previous_curves[:iteration]:
+        plt.plot(curve[0], curve[1], '--', color='grey')
+
+    # gambar kurva saat ini
     draw_bezier_recursive(points, iteration)
 
-# Initialize plot
+# contoh titik
+# points = [(2, 2), (4, 4), (3, 3), (6, 2)]
+
+# inisialisasi plot
 fig, ax = plt.subplots()
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
-ax.set_title('Bezier Curve')
+ax.set_title('Beziér Curve')
 ax.grid()
 ax.axis('equal')
 
-# Create animation
-iterations = int(input("Masukan banyak iterasi: "))
+# buat animasi
+iterations = int(input("Masukkan jumlah iterasi: "))
 ani = FuncAnimation(fig, animate, frames=iterations+1, interval=350, repeat=False)
 
-# Display animation
-plt.draw()
+# tampilkan animasi
+plt.draw() 
 plt.show()

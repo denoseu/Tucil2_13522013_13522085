@@ -32,19 +32,24 @@ def plot_bezier_curve(points):
     plt.show()
 
 def main():
-    n = int(input("Masukan jumlah titik (minimal 3): "))
-    
-    x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
-    start_point = np.array([x_start, y_start])
+    # Input n titik
+    n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
 
-    points = [start_point]
-    for i in range(n - 2):
-        x, y = map(float, input(f"Masukan koordinat untuk control point {i+1} (x,y): ").split(","))
-        points.append(np.array([x, y]))
-    
+    while (n < 2):
+        print("\nUntuk membuat kurva masukan 2 atau lebih titik!")
+        n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
+
+    # Input koordinat poin-poin
+    x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
+    points = [(x_start, y_start)]
+
+    # Input control points
+    for i in range(n-2):
+        x, y = map(float, input("Masukan control point {}: (x,y): ".format(i+1)).split(","))
+        points.append((x, y))
+
     x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
-    end_point = np.array([x_end, y_end])
-    points.append(end_point)
+    points.append((x_end, y_end))
     
     plot_bezier_curve(points)
 
