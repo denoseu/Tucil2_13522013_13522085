@@ -91,6 +91,16 @@ header_image = resize_image(resource_path("assets/page-1/header.png"), 920, 55)
 header_label = tk.Label(root, image=header_image)
 header_label.pack()
 
+# Logo Image
+logo_image = resize_image(resource_path("assets/page-1/logo.png"), 920, 200)
+logo_label = tk.Label(root, image=logo_image)
+logo_label.place(relx=0.5, rely=0.07, anchor='n')
+
+# New Image
+new_image = resize_image(resource_path("assets/page-1/control.png"), 80, 20)
+new_label = tk.Label(root, image=new_image)
+new_label.place(relx=0.08, rely=0.09, anchor='n')
+
 # Style configuration
 style = ttk.Style()
 style.configure('TButton', font=('Helvetica', 12))
