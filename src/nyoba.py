@@ -5,6 +5,7 @@ import os, sys
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import time
 
 ########## ALGORITMA ##########
 def midpoint(point1, point2):
@@ -23,6 +24,7 @@ def draw_bezier_recursive(points, iterations):
 
 def start_animation():
     global ani
+    start_time = time.time()
 
     update_point_text()
     x_start, y_start = float(start_x_entry.get()), float(start_y_entry.get())
@@ -38,7 +40,8 @@ def start_animation():
         ax.clear()
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
-        ax.set_title(f'Bezier Curve Iteration {iteration}')
+        current_time = time.time() - start_time
+        ax.set_title(f'Bezier Curve Iteration {iteration} (Time exe.: {current_time:.2f} detik)')
         ax.grid()
         ax.axis('equal')
 
@@ -230,7 +233,7 @@ canvas2_animation = tk.Canvas(page2, width=700, height=500)
 canvas2_animation.place(x=68, y=190, width=440, height=430)
 
 def on_show_page2(event):
-    if notebook.index("current") == 1: 
+    if notebook.index("current") == 1:
         start_animation()  # panggil fungsi ketika udah di page 2 aja
 
 notebook.bind("<<NotebookTabChanged>>", on_show_page2)
