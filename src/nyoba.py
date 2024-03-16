@@ -78,46 +78,55 @@ def load_image_transparent(image_path, width, height):
     img = Image.open(image_path).resize((width, height), Image.NEAREST)
     return ImageTk.PhotoImage(img)
 
-##### TKINTER GUI #####
+# Function to switch notebook tab
+def switch_tab(tab_index):
+    notebook.select(tab_index)
 
+# TKINTER GUI
 root = tk.Tk()
 root.title("Bezier Curve Maker")
 root.geometry("850x768")
 
+# Create Notebook
+notebook = ttk.Notebook(root)
+notebook.pack(fill='both', expand=True)
+
+# Page 1
+page1 = ttk.Frame(notebook)
+notebook.add(page1, text='Input')
+
+# Page 2
+page2 = ttk.Frame(notebook)
+notebook.add(page2, text='Animation')
+
 # Create Canvas
-canvas = tk.Canvas(root, width=850, height=768)
-canvas.pack(fill="both", expand=True)
+canvas1 = tk.Canvas(page1, width=850, height=768)
+canvas1.pack(fill="both", expand=True)
 
-# Background Image
+# Background Image for Page 1
 background_image = ImageTk.PhotoImage(file=resource_path("assets/page-1/Dashboard.png"))
-canvas.create_image(0, 0, image=background_image, anchor="nw")
+canvas1.create_image(0, 0, image=background_image, anchor="nw")
 
-# Header Image
+# Header Image for Page 1
 header_image = load_image_transparent(resource_path("assets/page-1/header.png"), 920, 46)
-canvas.create_image(425, 28, image=header_image, anchor="center") 
+canvas1.create_image(425, 28, image=header_image, anchor="center") 
 
-# Logo Image
+# Logo Image for Page 1
 logo_image = load_image_transparent(resource_path("assets/page-1/logo.png"), 920, 250)
-canvas.create_image(425, 175, image=logo_image, anchor="center") 
+canvas1.create_image(425, 175, image=logo_image, anchor="center") 
 
-# Control Image
+# Control Image for Page 1
 control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 80, 20)
-canvas.create_image(60, 70, image=control_image, anchor="center")
+canvas1.create_image(60, 70, image=control_image, anchor="center")
 
-# Text Image
-text_image = load_image_transparent(resource_path("assets/page-1/title.png"), 400, 80)
-canvas.create_image(425, 160, image=text_image, anchor="center")
+# Text Image for Page 1
+text_image = load_image_transparent(resource_path("assets/page-1/title.png"), 630, 50)
+canvas1.create_image(410, 160, image=text_image, anchor="center")
 
-canvas.images = [background_image, header_image, logo_image, control_image]
+canvas1.images = [background_image, header_image, logo_image, control_image, text_image]
 
-# Style configuration
-style = ttk.Style()
-style.configure('TButton', font=('Helvetica', 12))
-style.configure('TLabel', font=('Helvetica', 12), background='#f8f8f2')
-style.configure('TEntry', font=('Helvetica', 12), fieldbackground='#f8f8f2')
-
-# Entry and Label Frames
-entry_frame = tk.Frame(root, bg='#f8f8f2', bd=5)
+# Entry and Label Frames for Page 1
+entry_frame = tk.Frame(page1, bg='#f8f8f2', bd=5)
 entry_frame.place(relx=0.5, rely=0.35, relwidth=0.85, relheight=0.6, anchor='n')
 
 # Input widgets (add these within the entry_frame)
@@ -147,7 +156,38 @@ iterations_label.grid(row=3, column=0, padx=5, pady=5)
 iterations_entry = ttk.Entry(entry_frame)
 iterations_entry.grid(row=3, column=1, padx=5, pady=5)
 
-start_button = ttk.Button(entry_frame, text="Generate Curve", command=start_animation)
+# Button to switch to Animation Page
+start_button = ttk.Button(entry_frame, text="Generate Curve", command=lambda: switch_tab(1))
 start_button.grid(row=4, column=0, columnspan=3, padx=5, pady=20)
+
+# Create Canvas for Page 2
+canvas2 = tk.Canvas(page2, width=850, height=768)
+canvas2.pack(fill="both", expand=True)
+
+# Background Image for Page 2
+background_image2 = ImageTk.PhotoImage(file=resource_path("assets/page-2/Dashboard.png"))
+canvas2.create_image(0, 0, image=background_image2, anchor="nw")
+
+# Header Image for Page 2
+header_image2 = load_image_transparent(resource_path("assets/page-2/header.png"), 920, 46)
+canvas2.create_image(425, 28, image=header_image2, anchor="center") 
+
+# Control Image for Page 2
+control_image2 = load_image_transparent(resource_path("assets/page-2/control.png"), 80, 20)
+canvas2.create_image(60, 70, image=control_image2, anchor="center")
+
+# Text Image for Page 2
+text_image2 = load_image_transparent(resource_path("assets/page-2/title.png"), 400, 70)
+canvas2.create_image(400, 120, image=text_image2, anchor="center")
+
+# Result Image for Page 2
+result_image2 = load_image_transparent(resource_path("assets/page-2/result.png"), 660, 450)
+canvas2.create_image(400, 400, image=result_image2, anchor="center")
+
+# Exit Image for Page 2
+exit_image2 = load_image_transparent(resource_path("assets/page-2/exit.png"), 80, 30)
+canvas2.create_image(390, 660, image=exit_image2, anchor="center")
+
+canvas2.images = [background_image2, header_image2, control_image2, result_image2, exit_image2]
 
 root.mainloop()
