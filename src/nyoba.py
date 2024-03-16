@@ -150,8 +150,10 @@ entry_frame = tk.Frame(page1, bg='#dabecb', bd=5)
 entry_frame.place(relx=0.5, rely=0.45, relwidth=0.85, relheight=0.5, anchor='n')
 
 # Input widgets (add these within the entry_frame)
-start_label = tk.Label(entry_frame, text="Start Point:", font=('Arial', 18), bg='#dabecb')
-start_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+x_label = tk.Label(entry_frame, text="x", font=('Arial', 18), bg='#dabecb')
+x_label.grid(row=0, column=1, padx=0, pady=0, sticky='nsew')
+y_label = tk.Label(entry_frame, text="y", font=('Arial', 18), bg='#dabecb')
+y_label.grid(row=0, column=2, padx=0, pady=0, sticky='nsew')
 
 start_label = tk.Label(entry_frame, text="Start Point:", font=('Arial', 18), bg='#dabecb')
 start_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
