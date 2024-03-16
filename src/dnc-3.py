@@ -18,10 +18,24 @@ def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
         if iterations == current_iteration:
             plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], '--')
 
-# titik awal dan akhir
-P0 = (0, 0)
-P1 = (4, 4)
-P2 = (8, 0)
+
+print("\n-- Kurva Bezier dengan 3 titik kontrol --")
+
+# # titik awal dan akhir
+# P0 = (0, 0)
+# P1 = (4, 4)
+# P2 = (8, 0)
+
+# Input koordinat poin-poin
+x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
+P0 = (x_start, y_start)
+
+x_control, y_control = map(float, input("Masukan control point (x,y): ").split(","))
+P1 = (x_control, y_control)
+
+x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
+P2 = (x_end, y_end)
+
 points = [P0, P1, P2]
 
 # buat kurva animasi
@@ -49,7 +63,7 @@ ax.axis('equal')
 
 # buat animasi
 iterations = int(input("Masukkan jumlah iterasi: "))
-ani = FuncAnimation(fig, animate, frames=iterations, interval=500, repeat=True)
+ani = FuncAnimation(fig, animate, frames=iterations+1, interval=500, repeat=False)
 
 # tampilkan animasi
 plt.draw()
