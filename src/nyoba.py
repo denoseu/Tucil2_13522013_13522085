@@ -188,7 +188,7 @@ button_image = load_image_transparent(button_image_path, 180, 38)
 # Button to switch to Animation Page
 start_button = tk.Button(entry_frame, image=button_image, command=lambda: switch_tab(1), borderwidth=0, highlightthickness=0, relief='flat')
 start_button.image = button_image  # keep a reference to prevent garbage-collection
-start_button.grid(row=5, column=0, columnspan=3, padx=5, pady=20)
+start_button.place(relx=0.5, rely=0.75, anchor='center')
 
 # Create Canvas for Page 2
 canvas2 = tk.Canvas(page2, width=850, height=768)
