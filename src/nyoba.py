@@ -24,6 +24,7 @@ def start_animation():
     # Ensure global declaration if variables are used outside function scope
     global ani  # Add this if 'ani' might be referenced elsewhere or to prevent garbage collection
 
+    update_point_text()
     x_start, y_start = float(start_x_entry.get()), float(start_y_entry.get())
     points = [(x_start, y_start)]
 
@@ -83,6 +84,23 @@ def load_image_transparent(image_path, width, height):
 # Function to switch notebook tab
 def switch_tab(tab_index):
     notebook.select(tab_index)
+
+def update_point_text():
+    # Fetch the points
+    x_start, y_start = start_x_entry.get(), start_y_entry.get()
+    x_control, y_control = control_x_entry.get(), control_y_entry.get()
+    x_end, y_end = end_x_entry.get(), end_y_entry.get()
+    
+    # Coordinates for the text on canvas2, adjust as necessary for your layout
+    text_x = 668  # Horizontal center
+    start_y = 300  # Adjust this value to place the text above the result image
+    line_height = 35  # Adjust based on your font size for vertical spacing
+    
+    # Create or update the text
+    # This example assumes you're creating new text every time. You could also update existing text.
+    canvas2.create_text(text_x, start_y, text=f"{x_start}            {y_start}", fill="black", anchor="center")
+    canvas2.create_text(text_x, start_y + line_height, text=f"{x_control}            {y_control}", fill="black", anchor="center")
+    canvas2.create_text(text_x, start_y + 2 * line_height, text=f"{x_end}            {y_end}", fill="black", anchor="center")
 
 # TKINTER GUI
 root = tk.Tk()
