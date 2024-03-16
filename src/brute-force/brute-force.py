@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-import time
+import timeit
 from matplotlib.animation import FuncAnimation
 
 # menghitung bobot tiap titik kontrol
@@ -13,7 +13,7 @@ def binomial_coefficient(n, k):
     else:
         return 0
 
-# secara langsung membuat kurva bezier
+# secara langsung menentukan titik dengan menghitung menggunakan rumus kurva bezier
 def bezier_curve_direct(t, points):
     n = len(points) - 1
     result = np.zeros(2)
@@ -21,26 +21,26 @@ def bezier_curve_direct(t, points):
         result += binomial_coefficient(n, i) * ((1 - t) ** (n - i)) * (t ** i) * np.array(p)
     return result
 
-def plot_bezier_curve(frame, ax, points, execution_time):
+# menyimpan titik-titik dari kurva bezier
+def bezier_curve_points(points, iterations):
+    t_values = np.linspace(0, 1, iterations)
+    curve_points = np.array([bezier_curve_direct(t, points) for t in t_values])
+    return curve_points
+
+# VISUALISASI
+def update(frame, ax, points, curves, iterations, execution_time):
     ax.clear()
+    ax.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
+    curve = curves[:frame+1]  # Select curve points up to the current iteration
+    ax.plot(curve[:, 0], curve[:, 1], 'b-', label=f'Iteration {frame}')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Beziér Curve Iteration {frame}')
-    ax.grid()
-    ax.axis('equal')
-    ax.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
-    for i in range(1, frame + 1):
-        t_values = np.linspace(0, 1, i*2+1)
-        curve_points = np.array([bezier_curve_direct(t, points) for t in t_values])
-        if i == frame:
-            ax.plot(curve_points[:,0], curve_points[:,1], color='blue', label='Current Iteration')
-        else:
-            ax.plot(curve_points[:,0], curve_points[:,1], linestyle='dotted', color='gray')
+    ax.set_title(f'Bezier Curve Iteration {frame}')
     ax.legend()
+    ax.axis('equal')
 
     execution_time_info = f'Execution Time: {execution_time:.2f} seconds'
-    ax.text(0.95, 0.05, execution_time_info, transform=ax.transAxes, ha='right', va='bottom', fontsize=10, bbox=dict(facecolor='white', alpha=0.5))
-
+    ax.text(0.95, 0.05, execution_time_info, transform=ax.transAxes, ha='right', va='bottom')
 
 def main():
     # Input n titik
@@ -50,7 +50,6 @@ def main():
         n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
 
     # Input koordinat poin-poin
-    # start points
     x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
     points = [(x_start, y_start)]
 
@@ -63,13 +62,19 @@ def main():
     x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
     points.append((x_end, y_end))
 
-    # Input jumlah iterasi
-    iteration = int(input("Masukan jumlah iterasi: "))
+    # banyak iterasi
+    i = int(input("Masukan jumlah iterasi: "))
+
+    start_time = timeit.default_timer()
+    curves = bezier_curve_points(points, i+1)
     
-    start_time = time.time()
     fig, ax = plt.subplots()
-    ani = FuncAnimation(fig, plot_bezier_curve, frames=iteration+1, fargs=(ax, points, time.time()-start_time), interval=500, repeat=False)
+
+    execution_time = timeit.default_timer() - start_time
+    
+    ani = FuncAnimation(fig, update, frames=i+1, fargs=(ax, points, curves, i, execution_time), interval=150, repeat=False)
     plt.show()
+
 
 if __name__ == "__main__":
     main()

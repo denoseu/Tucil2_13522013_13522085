@@ -54,6 +54,11 @@ def animate(iteration):
         draw_bezier_curve(P0, P1, P2, iteration, i)
     ax.autoscale()
 
+    # tampilkan waktu eksekusi
+    execution_time = time.time() - start_time
+    ax.text(0.95, 0.05, f'Execution Time: {execution_time:.2f} seconds', transform=ax.transAxes, ha='right', va='bottom', fontsize=10, bbox=dict(facecolor='white', alpha=0.5))
+
+
 # inisialisasi plot
 fig, ax = plt.subplots()
 ax.set_xlabel('X')
@@ -63,8 +68,9 @@ ax.grid()
 ax.axis('equal')
 
 # buat animasi
+start_time = time.time()
 iterations = int(input("Masukkan jumlah iterasi: "))
-ani = FuncAnimation(fig, animate, frames=iterations, interval=350, repeat=True)
+ani = FuncAnimation(fig, animate, frames=iterations, interval=350, repeat=False)
 
 # tampilkan animasi
 plt.draw()

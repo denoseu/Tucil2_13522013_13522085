@@ -1,9 +1,12 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import time
 
+# mencari mid point 2 titik
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
+# menggambar kurva bezier
 def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
     if iterations == 0:
         plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'r-')
@@ -53,6 +56,11 @@ def animate(iteration):
         draw_bezier_curve(P0, P1, P2, iteration, i)
     ax.autoscale()
 
+    # tampilkan waktu eksekusi
+    execution_time = time.time() - start_time
+    ax.text(0.95, 0.05, f'Execution Time: {execution_time:.2f} seconds', transform=ax.transAxes, ha='right', va='bottom', fontsize=10, bbox=dict(facecolor='white', alpha=0.5))
+
+
 # inisialisasi plot
 fig, ax = plt.subplots()
 ax.set_xlabel('X')
@@ -63,7 +71,8 @@ ax.axis('equal')
 
 # buat animasi
 iterations = int(input("Masukkan jumlah iterasi: "))
-ani = FuncAnimation(fig, animate, frames=iterations+1, interval=500, repeat=False)
+start_time = time.time()
+ani = FuncAnimation(fig, animate, frames=iterations, interval=350, repeat=False)
 
 # tampilkan animasi
 plt.draw()
