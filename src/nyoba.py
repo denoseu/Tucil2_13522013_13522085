@@ -94,7 +94,7 @@ canvas.create_image(0, 0, image=background_image, anchor="nw")
 
 # Header Image
 header_image = load_image_transparent(resource_path("assets/page-1/header.png"), 920, 46)
-canvas.create_image(425, 28, image=header_image, anchor="center")  # Adjust position as needed
+canvas.create_image(425, 28, image=header_image, anchor="center") 
 
 # Logo Image
 logo_image = load_image_transparent(resource_path("assets/page-1/logo.png"), 920, 250)
@@ -102,9 +102,8 @@ canvas.create_image(425, 175, image=logo_image, anchor="center")
 
 # Control Image
 control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 80, 20)
-canvas.create_image(60, 70, image=control_image, anchor="center")  # Adjust position as needed
+canvas.create_image(60, 70, image=control_image, anchor="center")
 
-# Prevent images from being garbage collected
 canvas.images = [background_image, header_image, logo_image, control_image]
 
 
