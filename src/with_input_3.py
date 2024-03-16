@@ -1,8 +1,11 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import time
 
+# mencari mid point 2 titik
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
+
 
 def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
     if iterations == 0:
@@ -16,7 +19,7 @@ def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
         draw_bezier_curve(R0, Q1, P2, iterations - 1, current_iteration)
         
         if iterations == current_iteration:
-            plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'r--')
+            plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], '--', color='grey')
 
 
 # Input koordinat poin-poin
