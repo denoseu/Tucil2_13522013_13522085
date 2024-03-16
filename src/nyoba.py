@@ -4,13 +4,14 @@ from PIL import Image, ImageTk
 import os, sys
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
 def draw_bezier_recursive(points, iterations):
     if len(points) == 2 or iterations == 0:
-        xs, ys = zip(*points) # unpack points into x and y coordinates
+        xs, ys = zip(*points)
         plt.plot(xs, ys, 'b-')
     else:
         new_points = []
@@ -20,7 +21,9 @@ def draw_bezier_recursive(points, iterations):
         draw_bezier_recursive(new_points, iterations - 1)
 
 def start_animation():
-    # Input koordinat poin-poin
+    # Ensure global declaration if variables are used outside function scope
+    global ani  # Add this if 'ani' might be referenced elsewhere or to prevent garbage collection
+
     x_start, y_start = float(start_x_entry.get()), float(start_y_entry.get())
     points = [(x_start, y_start)]
 
@@ -30,7 +33,6 @@ def start_animation():
     x_end, y_end = float(end_x_entry.get()), float(end_y_entry.get())
     points.append((x_end, y_end))
 
-    # Create animation frames
     def animate(iteration):
         ax.clear()
         ax.set_xlabel('X')
@@ -39,15 +41,12 @@ def start_animation():
         ax.grid()
         ax.axis('equal')
 
-        # Display points
         for i, point in enumerate(points):
             plt.plot(*point, 'ro')
             plt.text(point[0], point[1], f'P{i}')
 
-        # Draw curve
         draw_bezier_recursive(points, iteration)
 
-    # Initialize plot
     fig, ax = plt.subplots()
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
@@ -55,13 +54,16 @@ def start_animation():
     ax.grid()
     ax.axis('equal')
 
-    # Create animation
     iterations = int(iterations_entry.get())
     ani = FuncAnimation(fig, animate, frames=iterations+1, interval=350, repeat=False)
 
-    # Display animation
-    plt.draw()
-    plt.show()
+    canvas2.fig_photo = draw_figure(canvas2_animation, fig)  # Ensure this uses canvas2_animation
+
+def draw_figure(canvas, figure):
+    figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
+    figure_canvas_agg.draw()
+    figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
+    return figure_canvas_agg
 
 ##### TKINTER GUI #####
 def resource_path(relative_path):
@@ -126,38 +128,43 @@ canvas1.create_image(410, 160, image=text_image, anchor="center")
 canvas1.images = [background_image, header_image, logo_image, control_image, text_image]
 
 # Entry and Label Frames for Page 1
-entry_frame = tk.Frame(page1, bg='#f8f8f2', bd=5)
-entry_frame.place(relx=0.5, rely=0.35, relwidth=0.85, relheight=0.6, anchor='n')
+entry_frame = tk.Frame(page1, bg='#dabecb', bd=5)
+entry_frame.place(relx=0.5, rely=0.45, relwidth=0.85, relheight=0.5, anchor='n')
 
 # Input widgets (add these within the entry_frame)
-start_label = ttk.Label(entry_frame, text="Start Point:")
-start_label.grid(row=0, column=0, padx=5, pady=5)
-start_x_entry = ttk.Entry(entry_frame)
-start_x_entry.grid(row=0, column=1, padx=5, pady=5)
-start_y_entry = ttk.Entry(entry_frame)
-start_y_entry.grid(row=0, column=2, padx=5, pady=5)
+start_label = ttk.Label(entry_frame, text="Start Point:", font=('Arial', 18))
+start_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+start_x_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+start_x_entry.grid(row=0, column=1, padx=(0, 5), pady=5, sticky='we')
+start_y_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+start_y_entry.grid(row=0, column=2, padx=5, pady=5, sticky='we')
 
-control_label = ttk.Label(entry_frame, text="Control Point:")
-control_label.grid(row=1, column=0, padx=5, pady=5)
-control_x_entry = ttk.Entry(entry_frame)
-control_x_entry.grid(row=1, column=1, padx=5, pady=5)
-control_y_entry = ttk.Entry(entry_frame)
-control_y_entry.grid(row=1, column=2, padx=5, pady=5)
+control_label = ttk.Label(entry_frame, text="Control Point:", font=('Arial', 18))
+control_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
+control_x_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+control_x_entry.grid(row=1, column=1, padx=(0, 5), pady=5, sticky='we')
+control_y_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+control_y_entry.grid(row=1, column=2, padx=5, pady=5, sticky='we')
 
-end_label = ttk.Label(entry_frame, text="End Point:")
-end_label.grid(row=2, column=0, padx=5, pady=5)
-end_x_entry = ttk.Entry(entry_frame)
-end_x_entry.grid(row=2, column=1, padx=5, pady=5)
-end_y_entry = ttk.Entry(entry_frame)
-end_y_entry.grid(row=2, column=2, padx=5, pady=5)
+end_label = ttk.Label(entry_frame, text="End Point:", font=('Arial', 18))
+end_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
+end_x_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+end_x_entry.grid(row=2, column=1, padx=(0, 5), pady=5, sticky='we')
+end_y_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+end_y_entry.grid(row=2, column=2, padx=5, pady=5, sticky='we')
 
-iterations_label = ttk.Label(entry_frame, text="Iterate:")
-iterations_label.grid(row=3, column=0, padx=5, pady=5)
-iterations_entry = ttk.Entry(entry_frame)
-iterations_entry.grid(row=3, column=1, padx=5, pady=5)
+iterations_label = ttk.Label(entry_frame, text="Iterate:", font=('Arial', 18))
+iterations_label.grid(row=3, column=0, padx=5, pady=5, sticky='e')
+iterations_entry = ttk.Entry(entry_frame, font=('Arial', 18))
+iterations_entry.grid(row=3, column=1, padx=(0, 5), pady=5, sticky='we')
+
+# Load Button Image for Page 1
+button_image_path = resource_path("assets/page-1/curve.png")
+button_image = load_image_transparent(button_image_path, 180, 45)
 
 # Button to switch to Animation Page
-start_button = ttk.Button(entry_frame, text="Generate Curve", command=lambda: switch_tab(1))
+start_button = tk.Button(entry_frame, image=button_image, command=lambda: switch_tab(1), borderwidth=0, highlightthickness=0, relief='flat')
+start_button.image = button_image  # keep a reference to prevent garbage-collection
 start_button.grid(row=4, column=0, columnspan=3, padx=5, pady=20)
 
 # Create Canvas for Page 2
@@ -178,16 +185,26 @@ canvas2.create_image(60, 70, image=control_image2, anchor="center")
 
 # Text Image for Page 2
 text_image2 = load_image_transparent(resource_path("assets/page-2/title.png"), 400, 70)
-canvas2.create_image(400, 120, image=text_image2, anchor="center")
+canvas2.create_image(400, 110, image=text_image2, anchor="center")
 
 # Result Image for Page 2
-result_image2 = load_image_transparent(resource_path("assets/page-2/result.png"), 660, 450)
-canvas2.create_image(400, 400, image=result_image2, anchor="center")
+result_image2 = load_image_transparent(resource_path("assets/page-2/result.png"), 710, 510)
+canvas2.create_image(400, 410, image=result_image2, anchor="center")
 
 # Exit Image for Page 2
-exit_image2 = load_image_transparent(resource_path("assets/page-2/exit.png"), 80, 30)
-canvas2.create_image(390, 660, image=exit_image2, anchor="center")
+exit_image2 = load_image_transparent(resource_path("assets/page-2/exit.png"), 60, 30)
+canvas2.create_image(390, 680, image=exit_image2, anchor="center")
 
 canvas2.images = [background_image2, header_image2, control_image2, result_image2, exit_image2]
+
+# Add canvas for animation on Page 2
+canvas2_animation = tk.Canvas(page2, width=700, height=500)
+canvas2_animation.place(x=68, y=190, width=440, height=430)  # Adjust x, y, width, height as needed
+
+def on_show_page2(event):
+    if notebook.index("current") == 1:  # Check if the current tab is the animation page
+        start_animation()  # Call start_animation only when page 2 is shown
+
+notebook.bind("<<NotebookTabChanged>>", on_show_page2)  # Ensure this is in place to handle tab changes
 
 root.mainloop()
