@@ -6,7 +6,7 @@ import time
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
-
+# menggambar kurva bezier
 def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
     if iterations == 0:
         plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'b-')
@@ -22,21 +22,16 @@ def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
             plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], '--', color='grey')
 
 
-# Input koordinat poin-poin
+# input koordinat poin-poin
 x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
 P0 = (x_start, y_start)
 
-# Input control points
+# input control point
 x, y = map(float, input("Masukan control point (x,y): ").split(","))
 P1 = (x, y)
 
 x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
 P2 = (x_end, y_end)
-
-# titik awal dan akhir
-# P0 = (2, 2)
-# P1 = (3, 3)
-# P2 = (6, 2)
 
 # buat kurva animasi
 def animate(iteration):
