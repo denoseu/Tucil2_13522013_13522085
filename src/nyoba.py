@@ -1,10 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 from PIL import Image, ImageTk
 import os, sys
-
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
@@ -74,32 +73,40 @@ def resize_image(image_path, width, height):
     img = img.resize((width, height))
     return ImageTk.PhotoImage(img)
 
-# Create GUI
+# Function to load an image with transparency and resize it
+def load_image_transparent(image_path, width, height):
+    img = Image.open(image_path).resize((width, height), Image.NEAREST)
+    return ImageTk.PhotoImage(img)
+
+##### TKINTER GUI #####
+
 root = tk.Tk()
 root.title("Bezier Curve Maker")
-
-# Set the size of the tkinter window
 root.geometry("850x768")
 
-# Background Image
-background_image = tk.PhotoImage(file=resource_path("assets/page-1/Dashboard.png"))
-background_label = tk.Label(root, image=background_image)
-background_label.place(relwidth=1, relheight=1)
+# Create Canvas
+canvas = tk.Canvas(root, width=850, height=768)
+canvas.pack(fill="both", expand=True)
 
-# Header Image or Label
-header_image = resize_image(resource_path("assets/page-1/header.png"), 920, 46)
-header_label = tk.Label(root, image=header_image)
-header_label.pack()
+# Background Image
+background_image = ImageTk.PhotoImage(file=resource_path("assets/page-1/Dashboard.png"))
+canvas.create_image(0, 0, image=background_image, anchor="nw")
+
+# Header Image
+header_image = load_image_transparent(resource_path("assets/page-1/header.png"), 920, 46)
+canvas.create_image(425, 28, image=header_image, anchor="center")  # Adjust position as needed
 
 # Logo Image
-logo_image = resize_image(resource_path("assets/page-1/logo.png"), 920, 200)
-logo_label = tk.Label(root, image=logo_image)
-logo_label.place(relx=0.5, rely=0.06, anchor='n')
+logo_image = load_image_transparent(resource_path("assets/page-1/logo.png"), 920, 250)
+canvas.create_image(425, 175, image=logo_image, anchor="center") 
 
-# New Image
-new_image = resize_image(resource_path("assets/page-1/control.png"), 80, 20)
-new_label = tk.Label(root, image=new_image)
-new_label.place(relx=0.08, rely=0.09, anchor='n')
+# Control Image
+control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 80, 20)
+canvas.create_image(60, 70, image=control_image, anchor="center")  # Adjust position as needed
+
+# Prevent images from being garbage collected
+canvas.images = [background_image, header_image, logo_image, control_image]
+
 
 # Style configuration
 style = ttk.Style()
@@ -109,7 +116,7 @@ style.configure('TEntry', font=('Helvetica', 12), fieldbackground='#f8f8f2')
 
 # Entry and Label Frames
 entry_frame = tk.Frame(root, bg='#f8f8f2', bd=5)
-entry_frame.place(relx=0.5, rely=0.2, relwidth=0.75, relheight=0.5, anchor='n')
+entry_frame.place(relx=0.5, rely=0.35, relwidth=0.85, relheight=0.6, anchor='n')
 
 # Input widgets (add these within the entry_frame)
 start_label = ttk.Label(entry_frame, text="Start Point:")

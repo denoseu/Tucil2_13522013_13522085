@@ -77,7 +77,7 @@ ax.axis('equal')
 # buat animasi
 iterations = int(input("Masukkan jumlah iterasi: "))
 start_time = time.time()
-ani = FuncAnimation(fig, animate, frames=iterations+1, interval=350, repeat=False)
+ani = FuncAnimation(fig, animate, frames=iterations+1, interval=350, repeat=True)
 
 # tampilkan animasi
 plt.draw() 
