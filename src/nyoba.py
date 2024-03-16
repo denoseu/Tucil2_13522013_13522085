@@ -58,7 +58,7 @@ def start_animation():
     iterations = int(iterations_entry.get())
     ani = FuncAnimation(fig, animate, frames=iterations+1, interval=350, repeat=False)
 
-    canvas2.fig_photo = draw_figure(canvas2_animation, fig)  # Ensure this uses canvas2_animation
+    canvas2.fig_photo = draw_figure(canvas2_animation, fig)
 
 def draw_figure(canvas, figure):
     figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
