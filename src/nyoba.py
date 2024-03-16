@@ -104,8 +104,11 @@ canvas.create_image(425, 175, image=logo_image, anchor="center")
 control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 80, 20)
 canvas.create_image(60, 70, image=control_image, anchor="center")
 
-canvas.images = [background_image, header_image, logo_image, control_image]
+# Text Image
+text_image = load_image_transparent(resource_path("assets/page-1/title.png"), 400, 80)
+canvas.create_image(425, 160, image=text_image, anchor="center")
 
+canvas.images = [background_image, header_image, logo_image, control_image]
 
 # Style configuration
 style = ttk.Style()
