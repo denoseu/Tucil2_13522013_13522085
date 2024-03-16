@@ -128,16 +128,16 @@ background_image = ImageTk.PhotoImage(file=resource_path("assets/page-1/Dashboar
 canvas1.create_image(0, 0, image=background_image, anchor="nw")
 
 # Header Image for Page 1
-header_image = load_image_transparent(resource_path("assets/page-1/header.png"), 920, 46)
+header_image = load_image_transparent(resource_path("assets/page-1/header.png"), 920, 40)
 canvas1.create_image(425, 28, image=header_image, anchor="center") 
 
 # Logo Image for Page 1
-logo_image = load_image_transparent(resource_path("assets/page-1/logo.png"), 920, 250)
+logo_image = load_image_transparent(resource_path("assets/page-1/logo.png"), 920, 254)
 canvas1.create_image(425, 175, image=logo_image, anchor="center") 
 
 # Control Image for Page 1
-control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 80, 20)
-canvas1.create_image(60, 70, image=control_image, anchor="center")
+control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 130, 35)
+canvas1.create_image(78, 75, image=control_image, anchor="center")
 
 # Text Image for Page 1
 text_image = load_image_transparent(resource_path("assets/page-1/title.png"), 630, 50)
@@ -148,38 +148,39 @@ canvas1.images = [background_image, header_image, logo_image, control_image, tex
 # Entry and Label Frames for Page 1
 entry_frame = tk.Frame(page1, bg='#dabecb', bd=5)
 entry_frame.place(relx=0.5, rely=0.45, relwidth=0.85, relheight=0.5, anchor='n')
+entry_frame.grid_rowconfigure(0, minsize=40)
 
 # Input widgets (add these within the entry_frame)
 x_label = tk.Label(entry_frame, text="x", font=('Arial', 18), bg='#dabecb')
-x_label.grid(row=0, column=1, padx=0, pady=0, sticky='nsew')
+x_label.grid(row=1, column=1, padx=0, pady=0, sticky='nsew')
 y_label = tk.Label(entry_frame, text="y", font=('Arial', 18), bg='#dabecb')
-y_label.grid(row=0, column=2, padx=0, pady=0, sticky='nsew')
+y_label.grid(row=1, column=2, padx=0, pady=0, sticky='nsew')
 
 start_label = tk.Label(entry_frame, text="Start Point:", font=('Arial', 18), bg='#dabecb')
-start_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
+start_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
 start_x_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-start_x_entry.grid(row=1, column=1, padx=(0, 5), pady=5, sticky='we')
+start_x_entry.grid(row=2, column=1, padx=(0, 5), pady=5, sticky='we')
 start_y_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-start_y_entry.grid(row=1, column=2, padx=5, pady=5, sticky='we')
+start_y_entry.grid(row=2, column=2, padx=5, pady=5, sticky='we')
 
 control_label = tk.Label(entry_frame, text="Control Point:", font=('Arial', 18), bg='#dabecb')
-control_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
+control_label.grid(row=3, column=0, padx=5, pady=5, sticky='e')
 control_x_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-control_x_entry.grid(row=2, column=1, padx=(0, 5), pady=5, sticky='we')
+control_x_entry.grid(row=3, column=1, padx=(0, 5), pady=5, sticky='we')
 control_y_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-control_y_entry.grid(row=2, column=2, padx=5, pady=5, sticky='we')
+control_y_entry.grid(row=3, column=2, padx=5, pady=5, sticky='we')
 
 end_label = tk.Label(entry_frame, text="End Point:", font=('Arial', 18), bg='#dabecb')
-end_label.grid(row=3, column=0, padx=5, pady=5, sticky='e')
+end_label.grid(row=4, column=0, padx=5, pady=5, sticky='e')
 end_x_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-end_x_entry.grid(row=3, column=1, padx=(0, 5), pady=5, sticky='we')
+end_x_entry.grid(row=4, column=1, padx=(0, 5), pady=5, sticky='we')
 end_y_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-end_y_entry.grid(row=3, column=2, padx=5, pady=5, sticky='we')
+end_y_entry.grid(row=4, column=2, padx=5, pady=5, sticky='we')
 
-iterations_label = tk.Label(entry_frame, text="Iterate:", font=('Arial', 18), bg='#dabecb')
-iterations_label.grid(row=4, column=0, padx=5, pady=5, sticky='e')
+iterations_label = tk.Label(entry_frame, text="Iteration:", font=('Arial', 18), bg='#dabecb')
+iterations_label.grid(row=5, column=0, padx=5, pady=5, sticky='e')
 iterations_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
-iterations_entry.grid(row=4, column=1, padx=(0, 5), pady=5, sticky='we')
+iterations_entry.grid(row=5, column=1, padx=(0, 5), pady=5, sticky='we')
 
 # Load Button Image for Page 1
 button_image_path = resource_path("assets/page-1/curve.png")
@@ -199,12 +200,12 @@ background_image2 = ImageTk.PhotoImage(file=resource_path("assets/page-2/Dashboa
 canvas2.create_image(0, 0, image=background_image2, anchor="nw")
 
 # Header Image for Page 2
-header_image2 = load_image_transparent(resource_path("assets/page-2/header.png"), 920, 46)
+header_image2 = load_image_transparent(resource_path("assets/page-2/header.png"), 920, 40)
 canvas2.create_image(425, 28, image=header_image2, anchor="center") 
 
 # Control Image for Page 2
-control_image2 = load_image_transparent(resource_path("assets/page-2/control.png"), 80, 20)
-canvas2.create_image(60, 70, image=control_image2, anchor="center")
+control_image2 = load_image_transparent(resource_path("assets/page-2/control.png"), 130, 35)
+canvas2.create_image(78, 75, image=control_image2, anchor="center")
 
 # Text Image for Page 2
 text_image2 = load_image_transparent(resource_path("assets/page-2/title.png"), 400, 70)
