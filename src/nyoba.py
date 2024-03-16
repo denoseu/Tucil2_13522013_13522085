@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
+########## ALGORITMA ##########
 def midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
@@ -21,8 +22,7 @@ def draw_bezier_recursive(points, iterations):
         draw_bezier_recursive(new_points, iterations - 1)
 
 def start_animation():
-    # Ensure global declaration if variables are used outside function scope
-    global ani  # Add this if 'ani' might be referenced elsewhere or to prevent garbage collection
+    global ani
 
     update_point_text()
     x_start, y_start = float(start_x_entry.get()), float(start_y_entry.get())
@@ -66,7 +66,7 @@ def draw_figure(canvas, figure):
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
 
-##### TKINTER GUI #####
+########## BANTUAN FUNGSI UNTUK GUI ##########
 def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
@@ -76,81 +76,79 @@ def resize_image(image_path, width, height):
     img = img.resize((width, height))
     return ImageTk.PhotoImage(img)
 
-# Function to load an image with transparency and resize it
+# load gambar png untuk resize
 def load_image_transparent(image_path, width, height):
     img = Image.open(image_path).resize((width, height), Image.NEAREST)
     return ImageTk.PhotoImage(img)
 
-# Function to switch notebook tab
+# switch notebook tab
 def switch_tab(tab_index):
     notebook.select(tab_index)
 
 def update_point_text():
-    # Fetch the points
+    # fetch points
     x_start, y_start = start_x_entry.get(), start_y_entry.get()
     x_control, y_control = control_x_entry.get(), control_y_entry.get()
     x_end, y_end = end_x_entry.get(), end_y_entry.get()
     
-    # Coordinates for the text on canvas2, adjust as necessary for your layout
-    text_x = 668  # Horizontal center
-    start_y = 300  # Adjust this value to place the text above the result image
-    line_height = 35  # Adjust based on your font size for vertical spacing
+    text_x = 668
+    start_y = 300
+    line_height = 35
     
-    # Create or update the text
-    # This example assumes you're creating new text every time. You could also update existing text.
     canvas2.create_text(text_x, start_y, text=f"{x_start}            {y_start}", fill="black", anchor="center")
     canvas2.create_text(text_x, start_y + line_height, text=f"{x_control}            {y_control}", fill="black", anchor="center")
     canvas2.create_text(text_x, start_y + 2 * line_height, text=f"{x_end}            {y_end}", fill="black", anchor="center")
 
-# TKINTER GUI
+def exit_program():
+    root.quit()  # quit tkinter application
+    root.destroy()  # destroy tkinter window
+    sys.exit()  #  exit python
+
+########## TKINTER GUI ##########
 root = tk.Tk()
 root.title("Bezier Curve Maker")
 root.geometry("850x768")
 
-# Create Notebook
+# create notebook
 notebook = ttk.Notebook(root)
 notebook.pack(fill='both', expand=True)
 
-# Page 1
+##### page 1 #####
 page1 = ttk.Frame(notebook)
 notebook.add(page1, text='Input')
 
-# Page 2
-page2 = ttk.Frame(notebook)
-notebook.add(page2, text='Animation')
-
-# Create Canvas
+# create canvas
 canvas1 = tk.Canvas(page1, width=850, height=768)
 canvas1.pack(fill="both", expand=True)
 
-# Background Image for Page 1
+# background
 background_image = ImageTk.PhotoImage(file=resource_path("assets/page-1/Dashboard.png"))
 canvas1.create_image(0, 0, image=background_image, anchor="nw")
 
-# Header Image for Page 1
+# header
 header_image = load_image_transparent(resource_path("assets/page-1/header.png"), 920, 40)
 canvas1.create_image(425, 28, image=header_image, anchor="center") 
 
-# Logo Image for Page 1
+# logo
 logo_image = load_image_transparent(resource_path("assets/page-1/logo.png"), 920, 254)
 canvas1.create_image(425, 175, image=logo_image, anchor="center") 
 
-# Control Image for Page 1
+# control
 control_image = load_image_transparent(resource_path("assets/page-1/control.png"), 130, 35)
 canvas1.create_image(78, 75, image=control_image, anchor="center")
 
-# Text Image for Page 1
+# text
 text_image = load_image_transparent(resource_path("assets/page-1/title.png"), 630, 50)
 canvas1.create_image(410, 160, image=text_image, anchor="center")
 
 canvas1.images = [background_image, header_image, logo_image, control_image, text_image]
 
-# Entry and Label Frames for Page 1
+# frame untuk input table
 entry_frame = tk.Frame(page1, bg='#dabecb', bd=5)
 entry_frame.place(relx=0.5, rely=0.45, relwidth=0.85, relheight=0.5, anchor='n')
 entry_frame.grid_rowconfigure(0, minsize=40)
 
-# Input widgets (add these within the entry_frame)
+# input table
 x_label = tk.Label(entry_frame, text="x", font=('Arial', 18), bg='#dabecb')
 x_label.grid(row=1, column=1, padx=0, pady=0, sticky='nsew')
 y_label = tk.Label(entry_frame, text="y", font=('Arial', 18), bg='#dabecb')
@@ -182,53 +180,59 @@ iterations_label.grid(row=5, column=0, padx=5, pady=5, sticky='e')
 iterations_entry = tk.Entry(entry_frame, font=('Arial', 18), borderwidth=0, highlightthickness=0)
 iterations_entry.grid(row=5, column=1, padx=(0, 5), pady=5, sticky='we')
 
-# Load Button Image for Page 1
+# generate curve button
 button_image_path = resource_path("assets/page-1/curve.png")
 button_image = load_image_transparent(button_image_path, 180, 38)
-
-# Button to switch to Animation Page
+# button ke page 2
 start_button = tk.Button(entry_frame, image=button_image, command=lambda: switch_tab(1), borderwidth=0, highlightthickness=0, relief='flat')
 start_button.image = button_image  # keep a reference to prevent garbage-collection
 start_button.place(relx=0.5, rely=0.75, anchor='center')
 
-# Create Canvas for Page 2
+##### page 2 #####
+page2 = ttk.Frame(notebook)
+notebook.add(page2, text='Animation')
+
+# create canvas
 canvas2 = tk.Canvas(page2, width=850, height=768)
 canvas2.pack(fill="both", expand=True)
 
-# Background Image for Page 2
+# background
 background_image2 = ImageTk.PhotoImage(file=resource_path("assets/page-2/Dashboard.png"))
 canvas2.create_image(0, 0, image=background_image2, anchor="nw")
 
-# Header Image for Page 2
+# header
 header_image2 = load_image_transparent(resource_path("assets/page-2/header.png"), 920, 40)
 canvas2.create_image(425, 28, image=header_image2, anchor="center") 
 
-# Control Image for Page 2
+# control
 control_image2 = load_image_transparent(resource_path("assets/page-2/control.png"), 130, 35)
 canvas2.create_image(78, 75, image=control_image2, anchor="center")
 
-# Text Image for Page 2
+# text
 text_image2 = load_image_transparent(resource_path("assets/page-2/title.png"), 400, 70)
 canvas2.create_image(400, 110, image=text_image2, anchor="center")
 
-# Result Image for Page 2
+# result
 result_image2 = load_image_transparent(resource_path("assets/page-2/result.png"), 710, 510)
 canvas2.create_image(400, 410, image=result_image2, anchor="center")
 
-# Exit Image for Page 2
+# exit
 exit_image2 = load_image_transparent(resource_path("assets/page-2/exit.png"), 60, 30)
 canvas2.create_image(390, 680, image=exit_image2, anchor="center")
+# exit button
+exit_button = tk.Button(page2, image=exit_image2, command=exit_program, borderwidth=0)
+exit_button_window = canvas2.create_window(390, 680, anchor="center", window=exit_button)
 
 canvas2.images = [background_image2, header_image2, control_image2, result_image2, exit_image2]
 
-# Add canvas for animation on Page 2
+# canvas untuk si animasi di page 2
 canvas2_animation = tk.Canvas(page2, width=700, height=500)
-canvas2_animation.place(x=68, y=190, width=440, height=430)  # Adjust x, y, width, height as needed
+canvas2_animation.place(x=68, y=190, width=440, height=430)
 
 def on_show_page2(event):
-    if notebook.index("current") == 1:  # Check if the current tab is the animation page
-        start_animation()  # Call start_animation only when page 2 is shown
+    if notebook.index("current") == 1: 
+        start_animation()  # panggil fungsi ketika udah di page 2 aja
 
-notebook.bind("<<NotebookTabChanged>>", on_show_page2)  # Ensure this is in place to handle tab changes
+notebook.bind("<<NotebookTabChanged>>", on_show_page2)
 
 root.mainloop()
