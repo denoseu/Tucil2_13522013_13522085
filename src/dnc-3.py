@@ -19,7 +19,7 @@ def draw_bezier_curve(P0, P1, P2, iterations, current_iteration):
         draw_bezier_curve(R0, Q1, P2, iterations - 1, current_iteration)
         
         if iterations == current_iteration:
-            plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], '--')
+            plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], '--', color='gray')
 
 
 print("\n-- Kurva Bezier dengan 3 titik kontrol --")
