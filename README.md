@@ -9,7 +9,7 @@
 
 
 ## Deskripsi Program
-program ini ...
+Program ini, sesuai namanya, mengimplementasikan pembuatan kurva Bézier dengan algoritma titik tengah berbasis divide and conquer. Program ini akan menerima input berupa titik seperti start point, control point, maupun endpoint dari pengguna untuk kemudian diolah menjadi sebuah kurva Bézier. Program juga akan meminta pengguna memasukkan banyak iterasi yang diinginkan untuk memperhalus kurva.
 
 ## Project Structure
 ```
