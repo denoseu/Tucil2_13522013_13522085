@@ -37,23 +37,23 @@ program ini ...
 ## Program Requirements
 Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>python --version</code> dan pip dengan <code>pip -V</code>.
 ### Program requirements untuk DNC-3-titik dan DNC-n-titik
-1. Matplotlib <br>
+1. <b> Matplotlib </b> <br>
     Berikut adalah command untuk mengunduh matplotlib.
     ```
     pip install matplotlib
     ```
 ### Program requirements untuk GUI
-1. Tkinter <br>
+1. <b> Tkinter </b> <br>
     Berikut adalah command untuk mengunduh Tkinter.
     ```
     pip install tk
     ```
-2. Matplotlib <br>
+2. <b> Matplotlib </b> <br>
     Berikut adalah command untuk mengunduh matplotlib.
     ```
     pip install matplotlib
     ```
-3. PIL <br>
+3. <b> PIL </b> <br>
     Berikut adalah command untuk mengunduh PIL.
     ```
     pip install Pillow
