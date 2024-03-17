@@ -91,6 +91,21 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
 6. Klik enter/return.
 7. Animasi kurva akan ditampilkan pada sebuah window baru.
 
+## How to Run Executable
+### MacOS
+1. Clone repository ini dengan 
+    ```
+    git clone https://github.com/hiirrs/Tucil2_13522013_13522085.git
+    ```
+2. Buka folder repository pada terminal.
+3. Pindah ke direktori *bin* dengan `cd bin`
+4. Pindah ke direktori *macOS* dengan `cd macOS`
+5. Pindah ke direktori *dist* dengan `cd dist`
+6. Masukkan command <code>./brute-force</code>
+
+
+
+
 <h1 align="center"> <b> <span style="color:#E3A0BE">DIVIDE AND CONQUER </span> </b> </h1>
 
 ## How to Run and Use (CLI ver.)
@@ -134,3 +149,13 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
 8. Animasi kurva akan ditampilkan pada laman 'Animate', klik exit untuk keluar dari program.
 
 ## How to Run Executable
+### MacOS
+1. Clone repository ini dengan 
+    ```
+    git clone https://github.com/hiirrs/Tucil2_13522013_13522085.git
+    ```
+2. Buka folder repository pada terminal.
+3. Pindah ke direktori *bin* dengan `cd bin`
+4. Pindah ke direktori *macOS* dengan `cd macOS`
+5. Pindah ke direktori *dist* dengan `cd dist`
+6. Masukkan command <code>./dnc-3</code> atau <code>./dnc-n</code>
