@@ -49,7 +49,7 @@ def animate(iteration):
     ax.clear()
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Beziér Curve Iteration {iteration}')
+    ax.set_title(f'Beziér Curve Iteration {iteration+1}')
     ax.grid()
     ax.axis('equal')
     for i in range(1, iteration + 1):
