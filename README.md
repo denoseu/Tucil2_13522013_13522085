@@ -60,7 +60,7 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
     ```
 
 ## How to Run and Use (CLI ver.)
-### Terdapat 2 versi yang bisa dijalankan, yaitu menghitung kurva Bézier dengan n titik atau 3 titik saja.
+### Terdapat 2 versi yang bisa dijalankan, yaitu menghitung kurva Bézier dengan n titik (>= 4) atau 3 titik saja.
 1. Clone repository ini dengan 
     ```
     git clone https://github.com/hiirrs/Tucil2_13522013_13522085.git
