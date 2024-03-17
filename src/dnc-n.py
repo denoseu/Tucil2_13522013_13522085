@@ -169,7 +169,7 @@ def animate(iteration, time_execution, control_points):
     ax.legend(loc='lower right', fontsize=10)
 
     execution_time_info = f'Execution Time: {time_execution:.2f} milliseconds'
-    ax.text(0.5, 0.95, execution_time_info, transform=ax.transAxes, ha='center', fontsize=8)
+    ax.text(0.5, 0.965, execution_time_info, transform=ax.transAxes, ha='center', fontsize=10)
 
 iterations = len(saved_graphs)
 ani = FuncAnimation(fig, animate, frames=iterations, fargs=(time_execution, points), interval=300, repeat=False)
