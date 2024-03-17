@@ -73,7 +73,7 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
     pip install Pillow
     ```
 
-## <b> <span style="color:#E3A0BE">Brute Force </b>
+## <b> <span style="color:#E3A0BE">BRUTE FORCE </b>
 ## How to Run and Use (CLI ver.)
 1. Clone repository ini dengan 
     ```
@@ -90,7 +90,7 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
 6. Klik enter/return.
 7. Animasi kurva akan ditampilkan pada sebuah window baru.
 
-## <b> <span style="color:#E3A0BE">Divide and Conquer </span> </b>
+## <b> <span style="color:#E3A0BE">DIVIDE AND CONQUER </span> </b>
 ## How to Run and Use (CLI ver.)
 ### Terdapat 2 versi yang bisa dijalankan, yaitu menghitung kurva Bézier dengan n titik (>= 4) atau 3 titik saja.
 1. Clone repository ini dengan 
