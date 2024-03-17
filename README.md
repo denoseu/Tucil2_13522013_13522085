@@ -74,6 +74,7 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
     ```
 
 <h1 align="center"> <b> <span style="color:#E3A0BE">BRUTE FORCE </b> </h1>
+
 ## How to Run and Use (CLI ver.)
 1. Clone repository ini dengan 
     ```
@@ -91,6 +92,7 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
 7. Animasi kurva akan ditampilkan pada sebuah window baru.
 
 <h1 align="center"> <b> <span style="color:#E3A0BE">DIVIDE AND CONQUER </span> </b> </h1>
+
 ## How to Run and Use (CLI ver.)
 ### Terdapat 2 versi yang bisa dijalankan, yaitu menghitung kurva Bézier dengan n titik (>= 4) atau 3 titik saja.
 1. Clone repository ini dengan 
