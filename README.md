@@ -92,18 +92,21 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
 7. Animasi kurva akan ditampilkan pada sebuah window baru.
 
 ## How to Run Executable
-### MacOS
-1. Clone repository ini dengan 
+Clone repository ini dengan 
     ```
     git clone https://github.com/hiirrs/Tucil2_13522013_13522085.git
     ```
-2. Buka folder repository pada terminal.
-3. Pindah ke direktori *bin* dengan `cd bin`
-4. Pindah ke direktori *macOS* dengan `cd macOS`
-5. Pindah ke direktori *dist* dengan `cd dist`
-6. Masukkan command <code>./brute-force</code>
-
-
+### Windows
+1. Buka folder repository pada terminal.
+2. Pindah ke direktori *bin* dengan `cd bin`
+3. Pindah ke direktori *windows* dengan `cd windows`
+4. Masukkan command <code>dnc-3.exe</code> atau <code>dnc-n.exe</code>
+### MacOS
+1. Buka folder repository pada terminal.
+2. Pindah ke direktori *bin* dengan `cd bin`
+3. Pindah ke direktori *macOS* dengan `cd macOS`
+4. Pindah ke direktori *dist* dengan `cd dist`
+5. Masukkan command <code>./brute-force</code>
 
 
 <h1 align="center"> <b> <span style="color:#E3A0BE">DIVIDE AND CONQUER </span> </b> </h1>
@@ -149,13 +152,18 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
 8. Animasi kurva akan ditampilkan pada laman 'Animate', klik exit untuk keluar dari program.
 
 ## How to Run Executable
-### MacOS
-1. Clone repository ini dengan 
+Clone repository ini dengan 
     ```
     git clone https://github.com/hiirrs/Tucil2_13522013_13522085.git
     ```
-2. Buka folder repository pada terminal.
-3. Pindah ke direktori *bin* dengan `cd bin`
-4. Pindah ke direktori *macOS* dengan `cd macOS`
-5. Pindah ke direktori *dist* dengan `cd dist`
-6. Masukkan command <code>./dnc-3</code> atau <code>./dnc-n</code>
+### Windows
+1. Buka folder repository pada terminal.
+2. Pindah ke direktori *bin* dengan `cd bin`
+3. Pindah ke direktori *windows* dengan `cd windows`
+4. Masukkan command <code>dnc-3.exe</code> atau <code>dnc-n.exe</code>
+### MacOS
+1. Buka folder repository pada terminal.
+2. Pindah ke direktori *bin* dengan `cd bin`
+3. Pindah ke direktori *macOS* dengan `cd macOS`
+4. Pindah ke direktori *dist* dengan `cd dist`
+5. Masukkan command <code>./dnc-3</code> atau <code>./dnc-n</code>
