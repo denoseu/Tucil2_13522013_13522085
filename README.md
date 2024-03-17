@@ -72,7 +72,7 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
     ```
     python dnc-3.py
     ```
-    Untuk menjalankan program kurva Bézier dengan n titik:
+    Untuk menjalankan program kurva Bézier dengan 4 hingga n titik:
     ```
     python dnc-n.py
     ```
