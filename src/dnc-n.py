@@ -145,7 +145,7 @@ ax.set_ylabel('Y')
 ax.grid()
 ax.axis('equal')
 
-#Untuk memperlihatkan kurva tiap iterasi
+# Untuk memperlihatkan kurva tiap iterasi
 def animate(iteration, time_execution, control_points):
 
     ax.clear()
