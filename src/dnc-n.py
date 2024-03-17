@@ -92,8 +92,8 @@ def iterations(points, next_points, graph_points, iteration, i_now, save_graphs)
 # Input n titik
 n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
 
-while (n < 2):
-    print("\nUntuk membuat kurva masukan 2 atau lebih titik!")
+while (n < 4):
+    print("\nUntuk membuat kurva masukan 4 atau lebih titik!")
     n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
 
 # Input koordinat poin-poin
@@ -110,7 +110,7 @@ points.append((x_end, y_end))
 
 print("Iterasi maksimum ialah n+1! (dengan n jumlah titik yang dimasukkan)")
 i = int(input("Masukan jumlah iterasi: "))
-while i > n+1 :
+while i > n+1:
     print("Iterasi maksimum ialah n+1! (dengan n jumlah titik yang dimasukkan)")
     i = int(input("Masukan jumlah iterasi: "))
 
@@ -146,7 +146,7 @@ ax.grid()
 ax.axis('equal')
 
 #Untuk memperlihatkan kurva tiap iterasi
-def animate(iteration, time_execution):
+def animate(iteration, time_execution, control_points):
 
     ax.clear()
     ax.set_xlabel('X')
@@ -165,14 +165,13 @@ def animate(iteration, time_execution):
     points = saved_graphs[iteration]
     x_points, y_points = zip(*points)
     ax.plot(x_points, y_points, 'b-',  label='Current Curve')
-
-    # Tampilkan legenda
+    ax.plot([point[0] for point in control_points], [point[1] for point in control_points], 'ro-', label='Control Points')
     ax.legend(loc='lower right', fontsize=10)
 
     execution_time_info = f'Execution Time: {time_execution:.2f} milliseconds'
-    ax.text(0.5, 0.95, execution_time_info, transform=ax.transAxes, ha='center', fontsize=10)
+    ax.text(0.5, 0.95, execution_time_info, transform=ax.transAxes, ha='center', fontsize=8)
 
 iterations = len(saved_graphs)
-ani = FuncAnimation(fig, animate, frames=iterations, fargs=(time_execution,), interval=300, repeat=False)
+ani = FuncAnimation(fig, animate, frames=iterations, fargs=(time_execution, points), interval=300, repeat=False)
 
 plt.show()
