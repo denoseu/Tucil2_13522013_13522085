@@ -17,18 +17,32 @@ Program ini, sesuai namanya, mengimplementasikan pembuatan kurva Bézier dengan 
 ├── bin
 │
 ├── doc
+│   ├── Tucil2_13522013_13522085.pdf
 │
 ├── src
 │   ├── assets
 │   │   ├── page-1
 │   │   └── page-2
-│   ├── brute-force
-│   │   └── brute-force.py
+│   ├── brute-force.py
 │   ├── dnc-3.py
 │   ├── dnc-n.py
 │   └── gui.py
 │
 ├── test
+│   ├── brute-force-1.png
+│   ├── brute-force-2.png
+│   ├── brute-force-3.png
+│   ├── brute-force-4.png
+│   ├── brute-force-5.png
+│   ├── brute-force-6.png
+│   ├── dnc-1.png
+│   ├── dnc-2.png
+│   ├── dnc-3.png
+│   ├── dnc-4.png
+│   ├── dnc-5.png
+│   ├── dnc-6.png
+│   ├── gui_input.png
+│   └── gui_result.png
 │
 └── README.md
 
@@ -59,6 +73,24 @@ Pastikan Python dan pip sudah terinstall pada sistem. Cek Python dengan <code>py
     pip install Pillow
     ```
 
+## <b> BRUTE FORCE </b>
+## How to Run and Use (CLI ver.)
+1. Clone repository ini dengan 
+    ```
+    git clone https://github.com/hiirrs/Tucil2_13522013_13522085.git
+    ```
+2. Buka folder repository pada terminal.
+3. Pindah ke direktori *src* dengan `cd src`
+4. Masukkan command berikut pada terminal:
+    ```
+    python brute-force.py
+    ```
+    Jangan lupa untuk adjust jenis python yang digunakan, apabila mengunakan python3, ubah python menjadi <code>python3</code>.
+5. Masukkan jumlah titik, start point, control point(s), end point, serta jumlah iterasi.
+6. Klik enter/return.
+7. Animasi kurva akan ditampilkan pada sebuah window baru.
+
+## <b> DIVIDE AND CONQUER </b>
 ## How to Run and Use (CLI ver.)
 ### Terdapat 2 versi yang bisa dijalankan, yaitu menghitung kurva Bézier dengan n titik (>= 4) atau 3 titik saja.
 1. Clone repository ini dengan 
