@@ -169,7 +169,7 @@ def animate(iteration, time_execution):
     # Tampilkan legenda
     ax.legend(loc='lower right', fontsize=10)
 
-    execution_time_info = f'Execution Time: {time_execution:.2f} milliseconds'
+    execution_time_info = f'Waktu eksekusi: {time_execution:.2f} ms'
     ax.text(0.5, 0.95, execution_time_info, transform=ax.transAxes, ha='center', fontsize=10)
 
 iterations = len(saved_graphs)

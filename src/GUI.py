@@ -45,7 +45,7 @@ def start_animation():
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         current_time = time.time() - start_time
-        ax.set_title(f'Bezier Curve Iteration {iteration} (Time exe.: {current_time:.2f} detik)')
+        ax.set_title(f'Bezier Curve Iteration {iteration} (Waktu eksekusi: {current_time:.2f} s)')
         ax.grid()
         ax.axis('equal')
 
