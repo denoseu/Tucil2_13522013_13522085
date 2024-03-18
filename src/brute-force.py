@@ -27,6 +27,7 @@ def bezier_curve_points(points, iterations):
 
 
 # VISUALISASI
+
 def update(frame, ax, points, curves, iterations, execution_time):
     ax.clear()
     ax.plot([point[0] for point in points], [point[1] for point in points], 'ro-', label='Control Points')
@@ -34,7 +35,8 @@ def update(frame, ax, points, curves, iterations, execution_time):
     ax.plot(curve[:, 0], curve[:, 1], 'b-', label=f'Iteration {frame}')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Bezier Curve Iteration {frame}')
+    ax.set_title(f'Brute Force Bezier Curve Iteration-{frame}')
+    ax.grid()
     ax.legend()
     ax.axis('equal')
 
@@ -67,6 +69,10 @@ start_time = timeit.default_timer()
 curves = bezier_curve_points(points, iterations+1)
 
 fig, ax = plt.subplots()
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.grid()
+ax.axis('equal')
 
 execution_time = timeit.default_timer() - start_time
 

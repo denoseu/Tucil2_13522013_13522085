@@ -147,7 +147,7 @@ def animate(iteration, time_execution, control_points):
     ax.clear()
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title(f'Beziér Curve {iteration} Iteration ')
+    ax.set_title(f'DnC Beziér Curve Iteration-{iteration}')
     ax.grid()
     ax.axis('equal')
 
