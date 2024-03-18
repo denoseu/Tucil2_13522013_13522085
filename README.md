@@ -36,12 +36,14 @@ Program ini, sesuai namanya, mengimplementasikan pembuatan kurva Bézier dengan 
 │   ├── brute-force-4.png
 │   ├── brute-force-5.png
 │   ├── brute-force-6.png
+│   ├── brute-force-7.png
 │   ├── dnc-1.png
 │   ├── dnc-2.png
 │   ├── dnc-3.png
 │   ├── dnc-4.png
 │   ├── dnc-5.png
 │   ├── dnc-6.png
+│   ├── dnc-7.png
 │   ├── gui_input.png
 │   └── gui_result.png
 │
