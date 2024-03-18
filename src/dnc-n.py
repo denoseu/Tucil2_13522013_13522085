@@ -33,8 +33,10 @@ def make_the_next(points, next_points, middle):
 
 # mengumpulkan titik-titik untuk menggambar kurva
 def gather_graph_points(graph_points, middle_points):
-    if len(middle_points) == 1 and len(graph_points) == 2:
-        to = len(graph_points) // 2 
+    if len(middle_points) == 0:
+        return graph_points
+    elif len(middle_points) == 1:
+        to = len(graph_points) // 2
         graph_points.insert(to, middle_points[0])
         return graph_points
     else:
@@ -65,17 +67,19 @@ def iterations(points, next_points, graph_points, iteration, i_now, save_graphs)
     if iteration == 0:
         save_graphs.append(graph_points)
         return save_graphs
-    elif len(next_points) <= len(points):
+    
+    elif len(next_points) < len(points):
         new_mids = []
         new_midpoints, new_next_points = recursive_midpoint(points, next_points)
         new_mids.append(new_midpoints)
         graph_points = gather_graph_points(graph_points, new_mids)
         save_graphs.append(graph_points)
         return iterations(points, new_next_points, graph_points, iteration-1, i_now+1, save_graphs)
+    
     else:
         top = graph_points[len(graph_points)//2]
-        next_points = make_the_next(points, next_points, top)
-        divided_next_points = divide_list_of_points(next_points, len(points))
+        new_next_points = make_the_next(points, next_points, top)
+        divided_next_points = divide_list_of_points(new_next_points, len(points))
         each_next = []
         new_mids = []
         for part in divided_next_points:
@@ -92,15 +96,10 @@ def iterations(points, next_points, graph_points, iteration, i_now, save_graphs)
 # Input n titik
 n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
 
-while (n < 4):
-    print("\nUntuk membuat kurva masukan 4 atau lebih titik!")
-    n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
-
 # Input koordinat poin-poin
 x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
 points = [(x_start, y_start)]
 
-# Input control points
 for i in range(n-2):
     x, y = map(float, input("Masukan control point {}: (x,y): ".format(i+1)).split(","))
     points.append((x, y))
@@ -108,11 +107,8 @@ for i in range(n-2):
 x_end, y_end = map(float, input("Masukan end point (x,y): ").split(","))
 points.append((x_end, y_end))
 
-print("Iterasi maksimum ialah n+1! (dengan n jumlah titik yang dimasukkan)")
+# Input banyak iterasi
 i = int(input("Masukan jumlah iterasi: "))
-while i > n+1:
-    print("Iterasi maksimum ialah n+1! (dengan n jumlah titik yang dimasukkan)")
-    i = int(input("Masukan jumlah iterasi: "))
 
 # Untuk penggunaan otomatis
 # points = [(1.0, 0.0), (0.0, 3.0), (3.0, 6.0), (6.0, 6.0), (9.0, 3.0), (8.0, 0.0)]
@@ -135,7 +131,7 @@ saved_graphs = iterations(points, next_points, graph_points, i, 0, saved_graphs)
 end_time = time.perf_counter()
 
 # Waktu eksekusi
-time_execution = (end_time - start_time) *1000
+time_execution = (end_time - start_time)
 
 
 # VISUALISASI
@@ -168,7 +164,12 @@ def animate(iteration, time_execution, control_points):
     ax.plot([point[0] for point in control_points], [point[1] for point in control_points], 'ro-', label='Control Points')
     ax.legend(loc='lower right', fontsize=10)
 
-    execution_time_info = f'Execution Time: {time_execution:.2f} milliseconds'
+    # variasi waktu eksekusi
+    if time_execution < 0.1:
+        time_execution *= 1000
+        execution_time_info = f'Execution Time: {time_execution:.2f} miliseconds'
+    else:
+        execution_time_info = f'Execution Time: {time_execution:.2f} seconds'
     ax.text(0.5, 0.965, execution_time_info, transform=ax.transAxes, ha='center', fontsize=10)
 
 iterations = len(saved_graphs)
