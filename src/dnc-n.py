@@ -95,6 +95,9 @@ def iterations(points, next_points, graph_points, iteration, i_now, save_graphs)
 
 # Input n titik
 n = int(input("Masukan jumlah titik yang hendak dimasukkan: "))
+while n < 2:
+    print("\nUntuk membuat kurva masukkan 2 atau lebih titik!")
+    n = int(input("Masukkan jumlah titik yang hendak dimasukkan: "))
 
 # Input koordinat poin-poin
 x_start, y_start = map(float, input("Masukan start point (x,y): ").split(","))
